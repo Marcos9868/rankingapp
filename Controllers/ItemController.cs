@@ -96,6 +96,7 @@ namespace Controllers
         public Item[] Get(int itemType)
         {
             Item[] items = Items.Where(i => i.ItemType == itemType).ToArray();
+            Thread.Sleep(2000);
             return items;
         }
     }
