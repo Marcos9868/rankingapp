@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import MoviesList from "./MoviesImage";
 
 const RankItems = () => {
   const [items, setItems] = useState([]);
@@ -6,15 +7,28 @@ const RankItems = () => {
 
   useEffect(() => {
     fetch(`item/${dataType}`)
-      .then((res) => { return res.json() })
-      .then(data => { setItems(data) })
+      .then((res) => { 
+        return res.json() 
+      })
+      .then(data => { 
+        setItems(data) 
+      })
   }, []);
 
   return (
     <main>
+      <div className="items-not-ranked">
       {
-        (items.length > 0)? items.map((item) => (<h3>{item.Name}</h3>)):<div><h4>Loading...</h4></div>
+        (MoviesList.length > 0)? MoviesList.map((item) => 
+          <div className="unranked-cell">
+            <img id={`item-${item.id}`} src={MoviesList.find(i => i.id === item.imageId)?.image} />
+          </div>
+        ) :
+        <div>
+          <h4>Loading...</h4>
+        </div>
       }
+      </div>
     </main>
   )
 }
